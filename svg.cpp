@@ -1,5 +1,6 @@
 #include "svg.h"
 
+
 void
 svg_begin(double width, double height)
 {
@@ -39,13 +40,34 @@ show_histogram_svg(const vector<size_t>& bins)
     const auto BIN_HEIGHT = 30;
     const auto BLOCK_WIDTH = 10;
 
+    const size_t MAX_ASTERISK = IMAGE_WIDTH - TEXT_LEFT - TEXT_WIDTH;
+
+    size_t max_count = 0;
+    for (size_t count : bins) {
+        if (count > max_count) {
+            max_count = count;
+        }
+    }
+
+    const bool scaling_needed = max_count * BLOCK_WIDTH > MAX_ASTERISK;
+
     svg_begin(IMAGE_WIDTH, IMAGE_HEIGHT);
     double top = 0;
-    for (size_t bin : bins)
+    const auto heights = bin_height(bins, scaling_needed, max_count, MAX_ASTERISK, BLOCK_WIDTH);
+    double heights_average = avg(heights);
+
+    for (size_t i = 0; i < bins.size(); i++)
     {
-        const double bin_width = BLOCK_WIDTH * bin;
-        svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bin));
-        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "red", "#ffeeee");
+        string colour;
+        if (heights[i] > heights_average)
+            colour = "red";
+        else
+            colour = "green";
+
+        const double bin_width = BLOCK_WIDTH * heights[i];
+
+        svg_text(TEXT_LEFT, top + TEXT_BASELINE, to_string(bins[i]));
+        svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black", colour);
         top += BIN_HEIGHT;
     }
     svg_end();

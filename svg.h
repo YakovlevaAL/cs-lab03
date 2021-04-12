@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include "avg_colour.h"
 
 using namespace std;
 
