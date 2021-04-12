@@ -31,3 +31,12 @@ avg(const vector<size_t>& heights)
 
     return avg;
 }
+
+string
+color(size_t height, double heights_average)
+{
+    if (height > heights_average)
+            return "red";
+        else
+            return "green";
+}

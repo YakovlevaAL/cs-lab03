@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <string>
 
 using namespace std;
 
@@ -9,3 +10,6 @@ bin_height(const vector<size_t>& bins, bool scaling_needed, size_t max_count, si
 
 double
 avg(const vector<size_t>& heights);
+
+string
+color(size_t height, double heights_average);

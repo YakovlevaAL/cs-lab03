@@ -58,11 +58,7 @@ show_histogram_svg(const vector<size_t>& bins)
 
     for (size_t i = 0; i < bins.size(); i++)
     {
-        string colour;
-        if (heights[i] > heights_average)
-            colour = "red";
-        else
-            colour = "green";
+        string colour = color(heights[i], heights_average);
 
         const double bin_width = BLOCK_WIDTH * heights[i];
 
