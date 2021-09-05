@@ -1,0 +1,17 @@
+# depslib dependency file v1.0
+1630867266 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\avg_colour.cpp
+	"avg_colour.h"
+
+1630867266 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\avg_colour.h
+	<vector>
+	<string>
+
+1630867266 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\test.cpp
+	"histogram.h"
+	"avg_colour.h"
+	<cassert>
+
+1630885570 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\histogram.h
+	<iostream>
+	<vector>
+
