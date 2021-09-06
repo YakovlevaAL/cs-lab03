@@ -6,6 +6,9 @@
 
 #include <curl/curl.h>
 
+#include <sstream>
+#include <string>
+
 using namespace std;
 
 vector<double>
@@ -37,26 +40,42 @@ in >> data.bin_count;
 return data;
 }
 
-int main(int argc, char* argv[]) {
-    if(argc>1){
-       for(int i=0;i<argc;i++)
-        cerr<<argv[i]<<endl;
+size_t
+write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
+  auto data_size = item_size * item_count;
+ stringstream* buffer = reinterpret_cast<stringstream*>(ctx);
+ buffer->write(reinterpret_cast<char*>(items), data_size);
+    return data_size;
+}
 
-          CURL* curl=curl_easy_init();
-
-    if(curl) {
+ Input
+download(const string& address) {
+    curl_global_init(CURL_GLOBAL_ALL);
+    stringstream buffer;
+    CURL* curl=curl_easy_init();
+     if(curl) {
            CURLcode res;
-           curl_easy_setopt(curl, CURLOPT_URL, argv[1]);
+           curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
+           curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+           curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
            res = curl_easy_perform(curl);
-           cerr<<curl_easy_strerror(res);
+           if (res != CURLE_OK) {
+            cout << address<<endl;
+            cout << curl_easy_strerror(res);
+                exit(1);
+               }
            curl_easy_cleanup(curl);
            }
+    return read_input(buffer, false);
+}
 
-            return 0;
+int main(int argc, char* argv[]) {
+    Input input;
+    if (argc > 1) {
+        input = download(argv[1]);
+    } else {
+        input = read_input(cin, true);// Ввод данных
     }
-    curl_global_init(CURL_GLOBAL_ALL);
-    // Ввод данных
-    const auto input = read_input(cin,true);
     //Обработка данных
     const auto bins = make_histogram(input);
     // Вывод данных
