@@ -17,19 +17,19 @@ input_numbers(istream& in,size_t count)
 }
 
 Input
-read_input(istream& in){
+read_input(istream& in,bool prompt){
 Input data;
+if(prompt)
 cerr<<"Enter number count: ";
 size_t number_count;
 in >> number_count;
-
+if(prompt)
 cerr<<" Enter numbers: ";
 data.numbers =input_numbers(in,number_count);
-
-
+if(prompt)
 cerr <<"Enter bin count: ";
 size_t bin_count;
-in >> bin_count;
+in >> data.bin_count;
 
 return data;
 }
@@ -38,11 +38,9 @@ int
 main()
 {
     // Ввод данных
-    read_input(cin);
-    const auto input = read_input(cin);
+    const auto input = read_input(cin,true);
     //Обработка данных
     const auto bins = make_histogram(input);
-
     // Вывод данных
     show_histogram_svg(bins);
 
