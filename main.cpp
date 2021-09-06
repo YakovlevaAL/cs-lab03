@@ -1,7 +1,10 @@
 #include <iostream>
 #include <vector>
+
 #include "histogram.h"
 #include "svg.h"
+
+#include <curl/curl.h>
 
 using namespace std;
 
@@ -34,9 +37,8 @@ in >> data.bin_count;
 return data;
 }
 
-int
-main()
-{
+int main(int argc, char* argv[]) {
+    curl_global_init(CURL_GLOBAL_ALL);
     // ¬вод данных
     const auto input = read_input(cin,true);
     //ќбработка данных
