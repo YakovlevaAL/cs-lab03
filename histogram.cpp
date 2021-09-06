@@ -27,23 +27,23 @@ find_minmax(const vector<double>& numbers, double& min, double& max)
 }
 
 vector<size_t>
-make_histogram(const vector<double>& numbers, const size_t count)
+make_histogram(Input data)
 {
-    vector<size_t> result(count);
+    vector<size_t> bins(data.bin_count);
     double min;
     double max;
-    find_minmax(numbers, min, max);
-    for (double number : numbers)
+    find_minmax(data.numbers, min, max);
+    for (double number : data.numbers)
     {
-        size_t bin = (size_t)((number - min) / (max - min) * count);
-        if (bin == count)
+        size_t bin = (size_t)((number - min) / (max - min) * data.bin_count);
+        if (bin == data.bin_count)
         {
             bin--;
         }
-        result[bin]++;
+        bins[bin]++;
     }
 
-    return result;
+    return bins;
 }
 
 void
