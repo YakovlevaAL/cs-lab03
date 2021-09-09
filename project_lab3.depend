@@ -15,12 +15,14 @@
 	<iostream>
 	<vector>
 
-1630927918 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\main.cpp
+1631218147 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\main.cpp
 	<iostream>
 	<vector>
 	"histogram.h"
 	"svg.h"
 	<curl/curl.h>
+	<sstream>
+	<string>
 
 1630927387 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\svg.h
 	<iostream>

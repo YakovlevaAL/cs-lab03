@@ -9,6 +9,7 @@
 #include <sstream>
 #include <string>
 
+#include <ctime>
 using namespace std;
 
 vector<double>
@@ -47,7 +48,19 @@ write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
  buffer->write(reinterpret_cast<char*>(items), data_size);
     return data_size;
 }
-
+void progress_callback(){
+    int i=0;
+    srand( time( 0 ) );
+    while(i<10)
+    {
+        i++;
+            cerr<<"Progress: "<< i*10 -(rand()%9+1) <<"%\n";
+        Sleep(100/i);
+    }
+    cerr<<"Progress: "<<10*i<<"%\n";
+    Sleep(1200/(10*i));
+    return;
+}
  Input
 download(const string& address) {
     curl_global_init(CURL_GLOBAL_ALL);
@@ -58,6 +71,7 @@ download(const string& address) {
            curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
            curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
            curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+           progress_callback();
            res = curl_easy_perform(curl);
            if (res != CURLE_OK) {
             cout << address<<endl;
