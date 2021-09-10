@@ -3,6 +3,8 @@
 
 #include "histogram.h"
 #include "svg.h"
+#include"InfoText.h"
+
 
 #include <curl/curl.h>
 
@@ -48,6 +50,7 @@ write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
  buffer->write(reinterpret_cast<char*>(items), data_size);
     return data_size;
 }
+
 void progress_callback(){
     int i=0;
     srand( time( 0 ) );
@@ -61,6 +64,7 @@ void progress_callback(){
     Sleep(1200/(10*i));
     return;
 }
+
  Input
 download(const string& address) {
     curl_global_init(CURL_GLOBAL_ALL);

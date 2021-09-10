@@ -1,5 +1,6 @@
 #include "svg.h"
-
+#include <windows.h>
+#include "InfoText.h"
 
 void
 svg_begin(double width, double height)
@@ -66,5 +67,7 @@ show_histogram_svg(const vector<size_t>& bins)
         svg_rect(TEXT_WIDTH, top, bin_width, BIN_HEIGHT, "black", colour);
         top += BIN_HEIGHT;
     }
+    string InfoText=make_info_text();
+    svg_text(TEXT_LEFT, top + TEXT_BASELINE,InfoText);
     svg_end();
 }

@@ -6,23 +6,25 @@
 	<vector>
 	<string>
 
-1630927567 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\histogram.cpp
+1631234226 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\histogram.cpp
 	"histogram.h"
 	<vector>
 	<iostream>
 
-1630927497 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\histogram.h
+1631234120 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\histogram.h
 	<iostream>
 	<vector>
 
-1631218147 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\main.cpp
+1631234120 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\main.cpp
 	<iostream>
 	<vector>
 	"histogram.h"
 	"svg.h"
+	"InfoText.h"
 	<curl/curl.h>
 	<sstream>
 	<string>
+	<ctime>
 
 1630927387 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\svg.h
 	<iostream>
@@ -30,8 +32,10 @@
 	<string>
 	"avg_colour.h"
 
-1630889689 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\svg.cpp
+1631234120 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\svg.cpp
 	"svg.h"
+	<windows.h>
+	"InfoText.h"
 
 1621795924 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\curl\include\curl\curl.h
 	"curlver.h"
@@ -74,4 +78,13 @@
 1621795924 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\curl\include\curl\options.h
 
 1621795924 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\curl\include\curl\typecheck-gcc.h
+
+1631233767 source:c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\infotext.cpp
+	<iostream>
+	<string>
+	<windows.h>
+	<sstream>
+	"InfoText.h"
+
+1631233717 c:\users\админ\documents\С++\programmist(3)\labs\Альбина\cs-lab03\infotext.h
 
