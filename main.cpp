@@ -2,9 +2,8 @@
 #include <vector>
 #include "histogram.h"
 #include "svg.h"
-#include <string>
-#include<windows.h>
-#include <sstream>
+#include"InfoText.h"
+
 
 using namespace std;
 
@@ -17,26 +16,6 @@ input_numbers(size_t count)
         cin >> result[i];
     }
     return result;
-}
-
-string
-make_info_text() {
-    std::stringstream buffer;
-    DWORD info =GetVersion();
-    DWORD mask = 0x0000ffff;
-    DWORD version = info & mask;
-    DWORD version_major = version & 0x00ff;
-    DWORD version_minor = version & 0xff00;
-    version_minor = version >>8;
-    DWORD platform = info>>16;
-    DWORD build;
-    if ((platform &0x8000) == 0) build =platform;
-     DWORD DNS = MAX_COMPUTERNAME_LENGTH+1;
-    char ComputerName[DNS];
-    GetComputerNameA(ComputerName,&DNS);
-    cout<<"Window V"<<version_major<<"."<<version_minor<<"(build "<<build<<")\n"
-    <<"Computer name: "<<ComputerName;
-    return buffer.str();
 }
 
 int
