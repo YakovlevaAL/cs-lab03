@@ -1,16 +1,18 @@
 #include <iostream>
 #include <vector>
-
+#include <ctime>
 #include "histogram.h"
 #include "svg.h"
 #include"InfoText.h"
+//#include <wx/gauge.h>
 
-
+#include <time.h>
 #include <curl/curl.h>
 
 #include <sstream>
 #include <string>
 
+#include <stdio.h>
 #include <ctime>
 using namespace std;
 
@@ -24,7 +26,20 @@ input_numbers(istream& in,size_t count)
     }
     return result;
 }
-
+void call_back(){
+   int i=0;
+    srand( time( 0 ) );
+    while(i<10)
+    {
+            i++;
+            cerr<<"Progress: "<< i*10 -(rand()%9+1) <<"%\n";
+            //cout<<"Progress: "<< progress <<"%\n";
+        Sleep(100/i);
+    }
+ cerr<<"Progress: "<<10*i<<"%\n";
+    Sleep(120/i);
+return;
+    }
 Input
 read_input(istream& in,bool prompt){
 Input data;
@@ -51,40 +66,41 @@ write_data(void* items, size_t item_size, size_t item_count, void* ctx) {
     return data_size;
 }
 
-void progress_callback(){
-    int i=0;
-    srand( time( 0 ) );
-    while(i<10)
-    {
-        i++;
-            cerr<<"Progress: "<< i*10 -(rand()%9+1) <<"%\n";
-        Sleep(100/i);
-    }
-    cerr<<"Progress: "<<10*i<<"%\n";
-    Sleep(1200/(10*i));
-    return;
-}
+size_t progress_callback(
+  void* clientp,  // this is an unchanged pointer as set with CURLOPT_PROGRESSDATA
+  double dltotal, // the total bytes to be downloaded (or 0 if not downloading)
+  double dlnow,   // the current download bytecount (or 0 if not downloading)
+  double ultotal, // the total bytes to be uploaded (or 0 if not uploading)
+  double ulnow)  // the current upload bytecount (or 0 if not uploading){
+  {
+    stringstream* ptr= reinterpret_cast<stringstream*>(clientp);
+    auto D=dlnow * 100.0f / dlnow ;
+    return D;
+  }
+
 
  Input
 download(const string& address) {
     curl_global_init(CURL_GLOBAL_ALL);
     stringstream buffer;
+    stringstream* ptr;
     CURL* curl=curl_easy_init();
-     if(curl) {
-           CURLcode res;
-           curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
-           curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
-           curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
-           progress_callback();
-           res = curl_easy_perform(curl);
-           if (res != CURLE_OK) {
-            cout << address<<endl;
-            cout << curl_easy_strerror(res);
-                exit(1);
-               }
-           curl_easy_cleanup(curl);
-           }
-    return read_input(buffer, false);
+    CURLcode res = CURLE_OK;
+    if(curl) {
+        curl_easy_setopt(curl, CURLOPT_URL, address.c_str());
+        curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, write_data);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, &buffer);
+        curl_easy_setopt(curl, CURLOPT_PROGRESSFUNCTION,progress_callback);
+        res = curl_easy_perform(curl);
+        if (res != CURLE_OK) {
+        cout << address<<endl;
+        cout << curl_easy_strerror(res);
+            exit(1);
+            }
+        curl_easy_cleanup(curl);
+        call_back();
+        }
+return read_input(buffer, false);
 }
 
 int main(int argc, char* argv[]) {
