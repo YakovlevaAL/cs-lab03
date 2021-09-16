@@ -37,6 +37,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="InfoText.cpp" />
+		<Unit filename="InfoText.h" />
 		<Unit filename="avg_colour.cpp" />
 		<Unit filename="avg_colour.h" />
 		<Unit filename="histogram.cpp" />
